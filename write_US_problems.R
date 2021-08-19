@@ -96,7 +96,7 @@ cp_data <- load_cp_data(data_file, var_info)
 # problem_US.rds
 #
 # Subsequent steps rely on the analysis_name, "US", which should be a unique
-# analysis "ID" for files in the results folder.
+# analysis "ID" for files in the results folder (data_dir).
 data_dir <- file.path(".","results")
 analysis_name <- "US"
 main_problem <- cp_data$problem
@@ -120,5 +120,5 @@ cv_problems <- generate_cv_problems(main_problem, K=4, seed=234227327)
 # train_US_fold4.rds
 #  test_US_fold4.rds
 
-# NOTE: fold=T here
+# NOTE: is_folds=T here
 save_problem(data_dir, analysis_name, cv_problems, is_folds=T)
