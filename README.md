@@ -47,7 +47,7 @@ Left_Label | The label that marks left variables (**Ex:** \_L)
 Right_Label | The label that marks right variables (**Ex:** \_R)
 Left_Right_Approach | The approach to use for merging left/right variables (**Options:** left, right, mean, highest, lowest) 
 
-*The first four columns are required*, whereas the final four columns are optional and are only used if left/right variables exist in the data file that should be merged (*US.csv* here). Each variable must match a column name in the corresponding data file
+*The first four columns are required*, whereas the final four columns are optional and are only used if left/right variables exist in the data file that should be merged (*SVAD_US.csv* here). Each variable must match a column name in the corresponding data file
 **NOTE:** Only variables named in the var_info file (*US_var_info.csv* here) will be kept for analyses.
 
 ## Install yada
