@@ -97,7 +97,7 @@ cp_data <- load_cp_data(data_file, var_info)
 #
 # Subsequent steps rely on the analysis_name, "US", which should be a unique
 # analysis "ID" for files in the results folder (data_dir).
-data_dir <- file.path(".","results")
+data_dir <- "results"
 analysis_name <- "US"
 main_problem <- cp_data$problem
 save_problem(data_dir, analysis_name, main_problem)
