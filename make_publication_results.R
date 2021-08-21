@@ -426,7 +426,7 @@ xcalc <- seq(0,23,by=.01)
 fprior <- calc_x_density(xcalc, th_x)
 xbreaks <- seq(0,23,by=0.5)
 pdf("Fig_S1_age_histogram.pdf")
-hist(problem0$x,
+hist(problem$x,
      xlab="Age [years]",
      ylab="Density",
      main=NULL,
@@ -435,7 +435,7 @@ hist(problem0$x,
 lines(xcalc, fprior, lwd=3)
 dev.off()
 print("Number of observations for age histogram (x-values):")
-print(length(problem0$x))
+print(length(problem$x))
 
 ## Figure S2
 # Create the second figure for the supplement, which is for the illustration of
@@ -680,17 +680,21 @@ print(range((mi_cont-mi_ord)/mi_cont))
 ## Table S3
 # Generate univariate CI's for ordinal response variables
 seed_val <- 224073
-print("Point Estimate and Confidence Intervals for HME_EF: ")
-generate_ord_ci(data_dir, analysis_name, "HME_EF", th_x, input_seed=seed_val)
-print("Point Estimate and Confidence Intervals for TC_Oss: ")
-generate_ord_ci(data_dir, analysis_name, "TC_Oss", th_x, input_seed=seed_val)
-print("Point Estimate and Confidence Intervals for max_M1: ")
-generate_ord_ci(data_dir, analysis_name, "max_M1", th_x, input_seed=seed_val)
-print("Point Estimate and Confidence Intervals for man_I2: ")
-generate_ord_ci(data_dir, analysis_name, "man_I2", th_x, input_seed=seed_val)
+for (j in 1:problem$mod_spec$J) {
+  var_name <- problem$var_names[j]
+  print(paste0("Point Estimate and Confidence Intervals for ",var_name,": "))
+  ord_ci_table <- generate_ord_ci(data_dir,
+                                  analysis_name,
+                                  j=j,
+                                  "HME_EF",
+                                  th_x,
+                                  input_seed=seed_val,
+                                  save_file=TRUE)
+  print(ord_ci_table)
+}
+
+# Close all clusters used for parallel processing
+stopImplicitCluster()
 
 # End the re-directing of print statements to file
 sink()
-
-# Close all clusters used for parallel processing
-stopImplicitClusters()
