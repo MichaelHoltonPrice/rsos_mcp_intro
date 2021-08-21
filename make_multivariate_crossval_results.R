@@ -1,8 +1,8 @@
-# The preceding script in the "pipeline" is "solvey_US_multivariate.R", which 
-# conducts a maximum likelihood calculation for both the conditionally 
-# dependent and conditionally independent six-variable models. The maximum 
-# likelihood calculations are then used for model selection and as 
-# complimentary evidence for interpretations made using the Kullback-Leibler 
+# The preceding script in the "pipeline" is "solvey_US_multivariate.R", which
+# conducts a maximum likelihood calculation for both the conditionally
+# dependent and conditionally independent six-variable models. The maximum
+# likelihood calculations are then used for model selection and as
+# complimentary evidence for interpretations made using the Kullback-Leibler
 # metrics (see README or Supplemental Information for more details).
 
 # Load libraries
@@ -12,6 +12,10 @@ library(doParallel)
 
 # Clear the workspace
 rm(list=ls())
+
+# Re-direct print statements to a text file for a permanent record of
+# processing
+sink("results/make_multivariate_crossval_results_output.txt")
 
 # Check that a results folder exists in the working directory
 if(! ("results" %in% dir()) ) {
@@ -51,3 +55,6 @@ print(paste0("Out-of-sample negative log-likelihood for conditionally ",
 
 # Stop clusters from parallel processing
 stopImplicitCluster()
+
+# End the re-directing of print statements to file
+sink()
