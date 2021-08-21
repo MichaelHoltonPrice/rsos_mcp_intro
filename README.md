@@ -213,7 +213,7 @@ This will generate the following files:
 The following script provides all code for generating the plots and values included in Stull et al. (2021) and the supplimentary information. All print statements from the console will also be saved as a .txt file (*make_publication_results_output.txt*). 
 
 ``` r
-souce("make_publication_results.R")
+source("make_publication_results.R")
 ``` 
 
 MCP model performance is evaluated using two methods:  
