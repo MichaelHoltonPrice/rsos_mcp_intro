@@ -17,6 +17,8 @@ Please cite this compendium as:
 # Setup
 This research compendium has been developed using the statistical programming language R. To work with the compendium, you will need the [R software](https://cloud.r-project.org/) itself and optionally [RStudio Desktop](https://rstudio.com/products/rstudio/download/). If you only have R and do not have RStudio, you will additionally have to install [Pandoc](https://pandoc.org/installing.html).
 
+At the bottom of this README, we provide directions for running the analyses using a Docker image. One advantage of using Docker is that R's parallel processing libraries do not use forking on Windows, so running inside a Linux Docker container on Windows usually yields a much faster runtime for the multivariate optimization.
+
 ## Install R package yada
 Once you have **R** and/or **RStudio** opened, install `yada`, which will install additional dependencies:
 
@@ -230,3 +232,45 @@ The following functions can help generate supplemental results and/or files, but
 1. `vis_cont_fit()` and `vis_ord_fit()` Produce a visualizations of univariate, continuous or ordinal fits. Here, x is a vector of observed ages and w is a vector of observed responses (*such as FDL or max_M1*). In addition, this function requires the model parameter vector (th_w) and model specifications (mod_spec), obtained using the script `solvey_US_univariate.R`.
 2. `plot_x_posterior()` Plots the posterior density of a univariate or multivariate MCP model. Prior to using this function, the user must first run `calc_x_posterior()` and `analyze_x_posterior()` to obtain the posterior density for plotting. If age is known, the user may input the optional argument, xknown, during the `analyze_x_posterior()` step, which will then plot the known age on the density plot.
 
+# Running the analyses using Docker 
+Docker provides an appealing framework for running reproducible scientific analyses that we hope will see greater use in the future. We have provided a Dockerfile that defines a Docker image which can be used to run all our publication analyses.
+
+First, [install Docker](https://docs.docker.com/engine/install/) and ensure that it is available on the terminal/command line path.
+
+Second, clone this repository using git (these directions assume use of the terminal/command line, but see above for how to download the directory directly using git) and change directory (cd) into the base of the repository.
+
+```console
+git clone https://github.com/ElaineYChu/stulletal_mcp
+cd stulletal_mcp
+```
+
+Third, run the following command at the terminal to build the Docker image. To force all docker material to be (re)downloaded prior to creating the Docker image -- a step you should be certain you want to take -- use: "docker system prune -a".
+
+```console
+docker build -t michaelholtonprice/stulletal_mcp .
+```
+
+This will create a Linux image (Ubuntu 20.04), install R, install necessary dependencies, copy data and script files into the Docker image, and install R using the script install_yada.R that is part of this repository (specifically, commit f5951220242d1e01a408b18054ff9ec18d5c1358 of yada is installed).
+
+Fourth, start a Docker container with the following command:
+
+```console
+docker run --name stulletal_mcp -itv //c/stulletal_mcp_mirrored_dir:/mirrored_dir michaelholtonprice/stulletal_mcp
+```
+
+The preceding command places the user at a command line "inside" the Docker container. The -v tag in the command mirrors a directory on the host machine (C:\\stulletal_mcp_mirrored_dir) to a directory inside the Docker container (/mirrored_dir) that can be used to pass files between the host machine and the Docker container. The directory to the left of the semicolon is for the host machine and the directory to the right of the semicolon is for the Docker container. The path for the host machine may need to be modified for your situation.
+
+Fifth, change directory (cd) into stulletal_mcp (where files were copied during creation of the Docker image; see the Dockerfile) and run all the analysis scripts:
+
+```console
+cd stulletal_mcp
+Rscript run_all_analyses.R
+```
+
+Alternatively, start R and run the analyses one-by-one as described above.
+
+Sixth and finally, copy the results to the mirrored directory:
+
+```console
+cp -fr ./results /mirrored_data
+```
