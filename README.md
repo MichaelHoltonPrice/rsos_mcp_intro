@@ -272,5 +272,5 @@ Alternatively, start R and run the analyses one-by-one as described above.
 Sixth and finally, copy the results to the mirrored directory:
 
 ```console
-cp -fr ./results /mirrored_data
+cp -fr ./results /mirrored_dir
 ```
