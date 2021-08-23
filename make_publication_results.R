@@ -425,7 +425,7 @@ th_x <- readRDS(build_file_path(data_dir, analysis_name, "solutionx"))
 xcalc <- seq(0,23,by=.01)
 fprior <- calc_x_density(xcalc, th_x)
 xbreaks <- seq(0,23,by=0.5)
-pdf("Fig_S1_age_histogram.pdf")
+pdf(file.path("results","Fig_S1_age_histogram.pdf"))
 hist(problem$x,
      xlab="Age [years]",
      ylab="Density",
@@ -484,7 +484,7 @@ th_v_FDL_ordinal <- fit_univariate_ord(x_FDL, v_FDL, mod_spec_FDL_ordinal)
 qm <- calc_q(xplot, th_v_FDL_ordinal, m, mod_spec_FDL_ordinal)
 band_range <- range(x_FDL[v_FDL == m])
 
-pdf(file.path("results","FigS1_FDL_to_ordinal.pdf"))
+pdf(file.path("results","FigS2_FDL_to_ordinal.pdf"))
     par(
     mfrow = c(3, 1),
     oma = c(4, 2, 0, 0),
@@ -663,7 +663,7 @@ mi_cont <-
                        kl_div_vect_FDL)
   }
 mi_cont <- unlist(mi_cont)
-pdf(file.path("results","FigS2_FDL_to_ordinal_mi.pdf"))
+pdf(file.path("results","FigS3_FDL_to_ordinal_mi.pdf"))
   plot(xmi, mi_ord, ylim=c(0,max(mi_ord, mi_cont)),
        xlab= "Age [years]", ylab="Mutual Information",
        type="l", lwd=2, col="grey")
