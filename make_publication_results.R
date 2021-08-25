@@ -6,6 +6,7 @@
 library(yada)
 library(doParallel)
 library(foreach)
+library(ggplot2)
 registerDoParallel(detectCores())
 
 # Clear the workspace
@@ -677,7 +678,7 @@ dev.off()
 print("Range of information loss (proportion of cont. model)")
 print(range((mi_cont-mi_ord)/mi_cont))
 
-## Table S3
+## Table S2
 # Generate univariate CI's for ordinal response variables
 seed_val <- 224073
 for (j in 1:problem$mod_spec$J) {
@@ -692,6 +693,66 @@ for (j in 1:problem$mod_spec$J) {
                                   save_file=TRUE)
   print(ord_ci_table)
 }
+
+## Figure S4
+# Visualize available data in sample
+# Generate and extract final data frame for cumulative probit
+var_info <-  yada::load_var_info('data/US_var_info.csv')
+data_file <- 'data/SVAD_US.csv'
+cp_data <- load_cp_data(data_file, var_info)
+cp_df <- cp_data$cp_df
+
+# Calculate data availability frequencies
+cp_df$agey <- floor(cp_df$agey)  # convert age as integer
+age_vec <- sort(unique(cp_df$agey))  # vector of unique ages
+wide_df <- NULL
+N_vec <- NULL
+
+for(i in 1:length(age_vec)) {
+  temp_df <- cp_df[which(cp_df$agey==age_vec[i]),]
+  N_vec <- c(N_vec, nrow(temp_df))
+  NA_vec <- as.vector(colSums(is.na(temp_df[4:9])))/N_vec[i]  # count NA across vars
+  wide_df <- cbind(wide_df, (1-NA_vec))
+  colnames(wide_df) <- age_vec[1:(i)]
+}
+wide_df <- as.data.frame(cbind(colnames(cp_df[4:9]),wide_df))  # add variables as column
+colnames(wide_df) <- c('var',age_vec)
+
+# Format data for geom_raster
+long_df <- tidyr::gather(wide_df, key="age_int", value="freq", -var)
+long_df$var <- factor(long_df$var, levels=c("man_I2","max_M1","TC_Oss","HME_EF","RDL","FDL"))
+long_df$age_int <- factor(long_df$age_int, levels=age_vec)
+long_df$freq <- as.numeric(long_df$freq)
+
+# Generate plot
+pdf(file.path(data_dir,"FigS4_Missing_data.pdf"))
+  ggplot(long_df, aes(x=age_int, y=var)) + 
+    geom_title(aes(fill=(freq*100)), color="black") + coord_equal() + 
+    theme_minimal() + scale_fill_gradient(low="white",high="dodgerblue4") + 
+    labs(x="Age [years]", y="Variable", fill="% Available")
+dev.off()
+
+## Table S4
+# Frequency of missing data per response variable
+data_na <- data.frame(matrix(NA, nrow=nrow(cp_df), ncol=ncol(cp_df[4:9])))
+for (i in 1:ncol(data_na)) {
+  data_na[i] <- is.na(cp_df[i+3])
+}
+
+names(data_na) <- names(cp_df[4:9])
+
+missing_df <- data.frame(FDL=numeric(),
+                          RDL=numeric(),
+                          HME_EF=numeric(),
+                          TC_Oss=numeric(),
+                          max_M1=numeric(),
+                          man_I2=numeric())
+for(j in 1:ncol(data_na)) {
+  pct <- length(which(data_na[j]==TRUE))/nrow(data_na)
+  missing_df[1,j] <- pct*100
+}
+
+colnames(missing_vec) <- colnames(cp_df[4:9])
 
 # Close all clusters used for parallel processing
 stopImplicitCluster()
