@@ -51,7 +51,7 @@ COPY solvey_US_univariate.R /stulletal_mcp/solvey_US_univariate.R
 COPY write_US_problems.R /stulletal_mcp/write_US_problems.R
 
 # Install the specific yada commit that was used for publication with the
-# following file.
+# following file. This also install dplyr and ggplot2.
 RUN Rscript stulletal_mcp/install_yada.R
 
 #WORKDIR /yada

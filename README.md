@@ -28,6 +28,10 @@ install.packages("devtools")
 
 # Install yada
 devtools::install_github("MichaelHoltonPrice/yada")
+
+# If necessary, install dplyr and ggplot2
+install.packages("dplyr")
+install.packages("ggplot2")
 ```
 
 ## Getting the code and input data
