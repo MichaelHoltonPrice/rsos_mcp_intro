@@ -254,7 +254,7 @@ Third, run the following command at the terminal to build the Docker image. To f
 docker build -t michaelholtonprice/stulletal_mcp .
 ```
 
-This will create a Linux image (Ubuntu 20.04), install R, install necessary dependencies, copy data and script files into the Docker image, and install R using the script install_yada.R that is part of this repository (specifically, commit f5951220242d1e01a408b18054ff9ec18d5c1358 of yada is installed).
+This will create a Linux image (Ubuntu 20.04), install R, install necessary dependencies, copy data and script files into the Docker image, and install R using the script install_yada.R that is part of this repository (specifically, commit b16034db9d81e59642ffda029ade8f91df669846 of yada is installed).
 
 Fourth, start a Docker container with the following command:
 
