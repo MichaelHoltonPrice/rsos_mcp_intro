@@ -28,6 +28,16 @@ RUN apt-get update && \
     apt-get install -y libssl-dev && \
     apt-get install -y libxml2-dev && \
     apt-get install -y pandoc && \
+    # It's not clear which of the following installs are needed, and this may
+    # be operating system specific, so include all of them in case somebody
+    # copies these installs for another setting
+    apt-get install -y libfontconfig1-dev && \
+    apt-get install -y libharfbuzz-dev && \
+    apt-get install -y libfribidi-dev && \
+    apt-get install -y libfreetype6-dev && \
+    #apt-get install -y libpng-dev && \
+    apt-get install -y libtiff5-dev && \
+    #apt-get install -y libjpeg-dev && \
     apt-get clean
 
 # Make directories
