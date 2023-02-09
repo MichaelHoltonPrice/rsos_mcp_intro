@@ -61,9 +61,10 @@ The remainder of this section describes the steps we took to commit the image
 on Docker Hub in February, 2023. To continue with the analysis pipeline, SKIP 
 TO the section "Common steps." (There is no need to run the remaining commands
 in this section, though you could certainly replicate the Docker image
-push if desired, replacing michaelholtonprice everywhere with your Docker
-username; you would first need to create a new repository named stulletal_mcp
-to receive the push using the Docker Hub website.)
+push if desired with the next two commands, replacing michaelholtonprice
+everywhere with your Docker username; you would first need to create a new
+repository named stulletal_mcp to receive the push using the Docker Hub
+website.)
 
 We added a descriptive tag for the image, which had the ID df9237b5b72f, and
 pushed it to Michael Holton Price's Docker Hub repository (a new repository
@@ -75,6 +76,17 @@ docker push michaelholtonprice/stulletal_mcp:post_build
 ```
 
 # Approach (2): Use the Docker image on Docker Hub
+
+Pull (download) the Docker image:
+
+```console
+docker pull michaelholtonprice/stulletal_mcp:post_build
+```
+
+In fact, the preceding command can probably be skipped since the
+"docker run..." command in the following section will pull the image if it has
+not already been pulled . However, it is useful to pull it separately to
+understand what is happening.
 
 # Common steps
 Start a Docker container of the image michaelholtonprice/stulletal_mcp:post_build
@@ -96,8 +108,8 @@ situation.
 
 Change directory (cd) into stulletal_mcp (where files were copied during
 creation of the Docker image; see the Dockerfile) and run all the analysis
-scripts and result generation scripts (this will take a very long time --
-often over a week):
+and result generation scripts (this will take a very long time -- likely over
+a week):
 
 ```console
 cd stulletal_mcp
