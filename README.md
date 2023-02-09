@@ -74,3 +74,35 @@ docker push michaelholtonprice/stulletal_mcp:post_build
 # Approach (2): Use the Docker image on Docker Hub
 
 # Common steps
+Start a Docker container of the image michaelholtonprice/stulletal_mcp:post_build
+using the following command:
+
+```console
+docker run --name stulletal_mcp -itv //c/stulletal_mcp_mirrored_dir:/mirrored_dir michaelholtonprice/stulletal_mcp:post_build
+```
+
+The preceding command places the user at a command line "inside" the Docker
+container. The -v tag in the command mirrors a directory on the host machine
+
+(C:\mcp_pipeline_mirrored_dir) to a directory inside the Docker container
+(/mirrored_dir) that can be used to pass files between the host machine and the
+Docker container. The directory to the left of the semicolon is for the host
+machine and the directory to the right of the semicolon is for the Docker
+container. The path for the host machine may need to be modified for your
+situation.
+
+Change directory (cd) into stulletal_mcp (where files were copied during
+creation of the Docker image; see the Dockerfile) and run all the analysis
+scripts and result generation scripts (this will take a very long time --
+often over a week):
+
+```console
+cd stulletal_mcp
+Rscript run_all_analyses.R
+```
+
+Finally, copy the results to the mirrored directory:
+
+```console
+cp -fr ./results /mirrored_dir
+```
