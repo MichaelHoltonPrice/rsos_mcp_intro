@@ -58,9 +58,12 @@ using the script install_yada.R that is part of this repository (specifically,
 commit b16034db9d81e59642ffda029ade8f91df669846 of yada is installed).
 
 The remainder of this section describes the steps we took to commit the image
-on Docker Hub in February, 2023. To continue with analysis pipeline, skip to
-the section "Common steps." There is NO NEED to run the remaining commands in
-this section. They are here only for documentation.
+on Docker Hub in February, 2023. To continue with the analysis pipeline, SKIP 
+TO the section "Common steps." (There is no need to run the remaining commands
+in this section, though you could certainly replicate the Docker image
+push if desired, replacing michaelholtonprice everywhere with your Docker
+username; you would first need to create a new repository named stulletal_mcp
+to receive the push using the Docker Hub website.)
 
 We added a descriptive tag for the image, which had the ID df9237b5b72f, and
 pushed it to Michael Holton Price's Docker Hub repository (a new repository
