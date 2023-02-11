@@ -8,9 +8,7 @@ This repository contains the source code for our paper:
 
 This README is specifically for a branch of the github repository named pub. It
 provides the exact source code used to create publication results. The main
-branch of the repository, in contrast, contains code that has been updated to
-work with a more recent version of yada (though we will no longer update even
-the main branch after February, 2023).
+branch of the repository, in contrast, contains bleeding edge code.
 
 Since we originaly ran the code to create publication results, devtools was
 updated to require some new dependencies. Hence, we have updated the

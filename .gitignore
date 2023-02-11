@@ -5,3 +5,5 @@ results
 .idea
 *.pdf
 *.swo
+
+/data/SVAD_US_reformatted.csv
