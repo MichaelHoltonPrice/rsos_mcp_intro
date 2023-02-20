@@ -2,13 +2,13 @@
 # container. The -v tag mirrors a folder on the host machine with the
 # /mirrored_dir folder in the Docker container.
 #
-# docker build -t michaelholtonprice/stulletal_mcp .
-# docker run --name stulletal_mcp -itv //c/stulletal_mcp_mirrored_dir:/mirrored_dir michaelholtonprice/stulletal_mcp
+# docker build -t michaelholtonprice/rsos_mcp_intro .
+# docker run --name rsos_mcp_intro -itv //c/rsos_mcp_intro_mirrored_dir:/mirrored_dir michaelholtonprice/rsos_mcp_intro
 #
 # If desired, the following command starts a container without mirroring a
 # directory on the host machine:
 #
-# docker run --name stulletal_mcp -it michaelholtonprice/stulletal_mcp
+# docker run --name rsos_mcp_intro -it michaelholtonprice/rsos_mcp_intro
 FROM ubuntu:20.04
 
 # Set the following environmental variable to avoid interactively setting the
@@ -41,28 +41,28 @@ RUN apt-get update && \
     apt-get clean
 
 # Make directories
-RUN mkdir stulletal_mcp
-RUN mkdir stulletal_mcp/results
-RUN mkdir stulletal_mcp/data
+RUN mkdir rsos_mcp_intro
+RUN mkdir rsos_mcp_intro/results
+RUN mkdir rsos_mcp_intro/data
 
 # Copy input files
-COPY /data/SVAD_US.csv /stulletal_mcp/data/SVAD_US.csv
-COPY /data/US_var_info.csv /stulletal_mcp/data/US_var_info.csv
+COPY /data/SVAD_US.csv /rsos_mcp_intro/data/SVAD_US.csv
+COPY /data/US_var_info.csv /rsos_mcp_intro/data/US_var_info.csv
 
 # Copy .R files
-COPY install_yada.R /stulletal_mcp/install_yada.R
-COPY make_multivariate_crossval_results.R /stulletal_mcp/make_multivariate_crossval_results.R
-COPY make_publication_results.R /stulletal_mcp/make_publication_results.R
-COPY make_univariate_crossval_results.R /stulletal_mcp/make_univariate_crossval_results.R
-COPY run_all_analyses.R /stulletal_mcp/run_all_analyses.R
-COPY solvex_US.R /stulletal_mcp/solvex_US.R
-COPY solvey_US_multivariate.R /stulletal_mcp/solvey_US_multivariate.R
-COPY solvey_US_univariate.R /stulletal_mcp/solvey_US_univariate.R
-COPY write_US_problems.R /stulletal_mcp/write_US_problems.R
+COPY install_yada.R /rsos_mcp_intro/install_yada.R
+COPY make_multivariate_crossval_results.R /rsos_mcp_intro/make_multivariate_crossval_results.R
+COPY make_publication_results.R /rsos_mcp_intro/make_publication_results.R
+COPY make_univariate_crossval_results.R /rsos_mcp_intro/make_univariate_crossval_results.R
+COPY run_all_analyses.R /rsos_mcp_intro/run_all_analyses.R
+COPY solvex_US.R /rsos_mcp_intro/solvex_US.R
+COPY solvey_US_multivariate.R /rsos_mcp_intro/solvey_US_multivariate.R
+COPY solvey_US_univariate.R /rsos_mcp_intro/solvey_US_univariate.R
+COPY write_US_problems.R /rsos_mcp_intro/write_US_problems.R
 
 # Install the specific yada commit that was used for publication with the
 # following file. This also install dplyr and ggplot2.
-RUN Rscript stulletal_mcp/install_yada.R
+RUN Rscript rsos_mcp_intro/install_yada.R
 
 #WORKDIR /yada
 

@@ -1,6 +1,6 @@
 # The preceding script in the "pipeline" is write_US_problems.R, which writes
 # both the main problem and cross-validation problems to the results folder
-# (stulletal_mcp/results). This script, "solvey_US_univariate.R", does maximum
+# (rsos_mcp_intro/results). This script, "solvey_US_univariate.R", does maximum
 # likelihood on a univariate distribution for each response variable, which is 
 # equivalent to a multivariate fit assuming conditional independence ('cindep') 
 # of the  variables. These fits are the basis for the cross-validation 
@@ -38,7 +38,7 @@
 #
 # While the preceding script in the pipeline may need to be modified (for
 # example, because different preprocessing steps are needed), this function
-# may not need modification, aside from using a folder other than "stulletal_mcp"
+# may not need modification, aside from using a folder other than "rsos_mcp_intro"
 # and an analysis name other than "US".
 
 # Load libraries

@@ -1,6 +1,6 @@
 # Overview of script
 # Goal: Our goal with the comments in this script (and others in the 
-# stulletal_mcp repository) is not just to describe the immediate analysis, 
+# rsos_mcp_intro repository) is not just to describe the immediate analysis, 
 # but also to describe how the script(s) can be modified to fit mixed 
 # cumulative probit models using other datasets.
 #
@@ -78,10 +78,10 @@ library(yada)
 # Clear the workspace
 rm(list=ls())
 
-# Check that stulletal_mcp is the working directory
-if(grepl('stulletal_mcp',getwd())==FALSE) {
+# Check that rsos_mcp_intro is the working directory
+if(grepl('rsos_mcp_intro',getwd())==FALSE) {
   stop(paste0("Please check that your working directory is the ",
-              "cloned directory 'stulletal_mcp'"))
+              "cloned directory 'rsos_mcp_intro'"))
 }
 
 # Load the variable information file. var_info is a data frame where rows are
@@ -91,7 +91,7 @@ data_file <- 'data/SVAD_US.csv'
 cp_data <- load_cp_data(data_file, var_info)
 
 # Extract the main problem (that is, not a cross-validation fold) from cp_data,
-# then save it to stulletal_mcp/results. This creates the following file in that
+# then save it to rsos_mcp_intro/results. This creates the following file in that
 # directory:
 # problem_US.rds
 #
@@ -109,7 +109,7 @@ save_problem(data_dir, analysis_name, main_problem)
 cv_problems <- generate_cv_problems(main_problem, K=4, seed=234227327)
 
 # Save the cross-validation problems to file. This creates the following eight
-# files in stulletal_mcp/results
+# files in rsos_mcp_intro/results
 #
 # train_US_fold1.rds
 #  test_US_fold1.rds

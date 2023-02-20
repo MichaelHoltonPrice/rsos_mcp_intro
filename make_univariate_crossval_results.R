@@ -30,7 +30,7 @@ data_dir <- "results"
 analysis_name <- 'US'
 
 # Call crossval_univariate_models to do the cross validation. Results are
-# stored in stulletal_mcp/results/cv_data_univariate_US.rds.
+# stored in rsos_mcp_intro/results/cv_data_univariate_US.rds.
 # Please refer to the function documentation for yada::crossval_univariate_models
 # for an explanation of the input variables and output format.
 cv_data <- crossval_univariate_models(data_dir, analysis_name, 
@@ -39,17 +39,17 @@ cv_data <- crossval_univariate_models(data_dir, analysis_name,
                                       beta2_max=5)
 
 # Write a cross validation report for each ordinal variable, which is stored
-# in stulletal_mcp/results
+# in rsos_mcp_intro/results
 for(j in 1:length(cv_data$mod_select_ord)) {
   write_ordinal_report(data_dir, analysis_name, j, line_width=200)
 }
 
 # Write a cross validation report for each continuous variable, which is stored
-# in stulletal_mcp/results
+# in rsos_mcp_intro/results
 for(k in 1:length(cv_data$mod_select_cont)) {
   write_continuous_report(data_dir, analysis_name, k, line_width=200)
 }
 
 # Extract best univariate parameters for each response variable into a dataframe.
-# Dataframe is stored as stulletal_mcp/results/US_univariate_model_parameters.rds
+# Dataframe is stored as rsos_mcp_intro/results/US_univariate_model_parameters.rds
 get_best_univariate_params(data_dir, analysis_name, save_file=TRUE)
