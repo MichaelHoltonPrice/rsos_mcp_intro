@@ -32,6 +32,10 @@ will be will need to be resolved the longer it is from February, 2023. This is
 why we have provided approach (2), so that the exact Docker image we created in
 February, 2023, can be used.
 
+These instructions assume use of the command line (e.g., Windows Powershell
+Mac terminal or Linux terminal) with Docker installed. The commands listed
+below should be copied and run in order at the command line.
+
 # Some notes on commits
 The actual commit of this repository used to create publication results was:
 
